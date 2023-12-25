@@ -1,3 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://amit123:amit123@devconnector.63hc3u8.mongodb.net/?retryWrites=true&w=majority"
+  "mongoURI": "mongodb+srv://amit123:amit123@devconnector.63hc3u8.mongodb.net/?retryWrites=true&w=majority",
+  "jwtSecret": "myappjwtsecret"
 }
