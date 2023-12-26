@@ -47,7 +47,7 @@ router.post(
         default: "mm",
       });
 
-      // Creating user instance with User model
+      // Creating new user instance with User model
       user = new User({
         name,
         email,
