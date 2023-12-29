@@ -1,6 +1,6 @@
 const express = require("express");
 const config = require("config");
-const request = require("request");
+const axios = require("axios");
 const router = express.Router();
 const auth = require("../../middleware/auth");
 const { check, validationResult, body } = require("express-validator");
@@ -421,26 +421,24 @@ router.put(
 // @route GET api/profile/github/:username
 // @access public
 // @desc Get user repos from Github
-router.get("/github/:username", (req, res) => {
+router.get("/github/:username", async (req, res) => {
   try {
     const options = {
-      uri: `https://api.github.com/users/${
+      method: "get",
+      url: `https://api.github.com/users/${
         req.params.username
       }/repos?per_page=5&sort=created:asc&client_id=${config.get(
         "githubClientId"
       )}&client_secret=${config.get("githubSecret")}`,
-      method: "GET",
       headers: { "user-agent": "node.js" },
     };
 
-    request(options, (error, response, body) => {
-      if (error) console.error(error);
-
-      if (response.statusCode !== 200) {
+    await axios(options).then((response) => {
+      if (response.status !== 200) {
         return res.status(404).json({ msg: "No Github profile found" });
       }
 
-      res.json(JSON.parse(body));
+      res.json(response.data);
     });
   } catch (error) {
     console.error(error.message);
