@@ -1,11 +1,14 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setAlert } from "../../actions/alert";
-import { register } from "../../actions/auth";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { alert } from "../../slices/alertSlice";
+import { registerUser } from "../../slices/authSlice";
 
 export const Register = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -24,14 +27,20 @@ export const Register = () => {
 
     // Validate password
     if (password !== password2) {
-      dispatch(setAlert("Password do not match", "danger"));
+      dispatch(alert("Password do not match", "danger"));
     } else {
-      dispatch(register({ name, email, password }));
+      dispatch(registerUser({ name, email, password }));
     }
   };
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated]);
+
   return (
-    <>
+    <section className="container">
       <h1 className="large text-primary">Sign Up</h1>
       <p className="lead">
         <i className="fas fa-user"></i>Create Your Account
@@ -43,8 +52,8 @@ export const Register = () => {
             placeholder="Name"
             name="name"
             value={name}
-            onChange={(e) => handleOnChange(e)}
             required
+            onChange={(e) => handleOnChange(e)}
           />
         </div>
         <div className="form-group">
@@ -53,8 +62,8 @@ export const Register = () => {
             placeholder="Email Address"
             name="email"
             value={email}
-            onChange={(e) => handleOnChange(e)}
             required
+            onChange={(e) => handleOnChange(e)}
           />
           <small className="form-text">
             This site uses Gravatar, so if you want a profile image, use a
@@ -65,7 +74,7 @@ export const Register = () => {
           <input
             type="password"
             placeholder="Password"
-            minLength={6}
+            minLength="6"
             name="password"
             value={password}
             onChange={(e) => handleOnChange(e)}
@@ -75,8 +84,8 @@ export const Register = () => {
           <input
             type="password"
             placeholder="Confirm Password"
+            minLength="6"
             name="password2"
-            minLength={6}
             value={password2}
             onChange={(e) => handleOnChange(e)}
           />
@@ -86,6 +95,6 @@ export const Register = () => {
       <p className="my-1">
         Already have an account? <Link to="/login">Sign In</Link>
       </p>
-    </>
+    </section>
   );
 };

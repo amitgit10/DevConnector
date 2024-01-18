@@ -4,34 +4,36 @@ const initialState = [];
 
 const alertSlice = createSlice({
   name: "alert",
-  initialState: () => initialState,
+  initialState,
   reducers: {
     setAlert: (state, action) => {
-      const id = nanoid();
-      const {
-        payload: { alertType, msg, timeout = 4000 },
-      } = action;
-      const alert = {
-        id,
-        alertType: alertType,
-        msg: msg,
-      };
-      state.push(alert);
-
-      setTimeout(() => {
-        alertSlice.caseReducers.removeAlert(alertSlice.getInitialState(), {
-          payload: id,
-        });
-      }, timeout);
+      const { payload } = action;
+      state.push(payload);
     },
     removeAlert: (state, action) => {
       const { payload } = action;
-      console.log(payload);
-      console.log(state);
       return state.filter((alert) => alert.id !== payload);
     },
   },
 });
 
-export const { setAlert } = alertSlice.actions;
+const alert =
+  (msg, alertType, timeout = 4000) =>
+  (dispatch) => {
+    const id = nanoid();
+    dispatch(
+      setAlert({
+        msg,
+        alertType,
+        id,
+      })
+    );
+
+    setTimeout(() => {
+      dispatch(removeAlert(id));
+    }, timeout);
+  };
+
+export { alert };
+export const { setAlert, removeAlert } = alertSlice.actions;
 export default alertSlice.reducer;

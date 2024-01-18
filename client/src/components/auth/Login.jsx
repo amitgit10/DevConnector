@@ -1,11 +1,17 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { alert } from "../../slices/alertSlice";
+import { login } from "../../slices/authSlice";
 
 export const Login = () => {
+  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
   const { password, email } = formData;
 
@@ -17,19 +23,21 @@ export const Login = () => {
 
     // Validate password
     if (!email || !password) {
-      console.log("Please enter your valid credentials");
+      dispatch(alert("Please enter your valid credentials", "danger"));
     } else {
-      console.log(formData);
+      dispatch(login({ ...formData }));
     }
   };
 
-  return (
-    <>
-      <div className="alert alert-danger">Invalid Credentials</div>
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
+  return (
+    <section className="container">
       <h1 className="large text-primary">Sign In</h1>
       <p className="lead">
-        <i className="fas fa-user"></i>Sign into your Account
+        <i className="fas fa-user"></i>Sign into your account
       </p>
       <form onSubmit={(e) => onSubmit(e)} className="form">
         <div className="form-group">
@@ -62,6 +70,6 @@ export const Login = () => {
       <p className="my-1">
         Don&apos;t have an account? <Link to="/register">Sign Up</Link>
       </p>
-    </>
+    </section>
   );
 };

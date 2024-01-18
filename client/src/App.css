@@ -275,7 +275,8 @@
   font-size: 1.2rem;
   border: 1px solid #ccc;
 }
-.form input[type="submit"] {
+.form input[type="submit"],
+button {
   font: inherit;
 }
 .form .social-input {
@@ -452,6 +453,18 @@ img {
 }
 .post img {
   width: 150px;
+}
+.post .comment-count {
+  background: #f4f4f4;
+  color: #17a2b8;
+  padding: 0.1rem 0.2rem;
+  border-radius: 5px;
+  font-size: 0.8rem;
+}
+.post .post-date {
+  color: #626d78;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
 }
 @media (max-width: 700px) {
   .hide-sm {

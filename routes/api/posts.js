@@ -111,9 +111,16 @@ router.put("/like/:id", auth, async (req, res) => {
     if (
       post.likes.filter((like) => like.user.toString() === req.user.id).length
     ) {
-      return res.status(400).json({ msg: "Post already liked" });
+      //return res.status(400).json({ msg: "Post already liked" });
+
+      // Remove like if already like by same user
+      const likeIndex = post.likes
+        .map((like) => like.user.toString())
+        .indexOf(req.user.id);
+      post.likes.splice(likeIndex, 1);
+    } else {
+      post.likes.unshift({ user: req.user.id });
     }
-    post.likes.unshift({ user: req.user.id });
 
     await post.save();
     res.json(post.likes);
@@ -125,8 +132,8 @@ router.put("/like/:id", auth, async (req, res) => {
 
 // @route PUT api/posts/unlike/:id
 // @access private
-// @desc Unlike a post
-router.put("/unlike/:id", auth, async (req, res) => {
+// @desc Unlike a post (This endpoint is Not in use)
+/* router.put("/unlike/:id", auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
 
@@ -148,7 +155,7 @@ router.put("/unlike/:id", auth, async (req, res) => {
     console.error(error.message);
     res.status(500).send("Server error");
   }
-});
+}); */
 
 // @route POST api/posts/comment/:id
 // @access private
