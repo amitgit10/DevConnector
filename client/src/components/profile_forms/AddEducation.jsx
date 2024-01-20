@@ -29,7 +29,7 @@ const AddEducation = () => {
     dispatch(addOrUpdateEducation(formData, navigate));
   };
   return (
-    <section className="container">
+    <>
       <h1 className="large text-primary">Add Your Education</h1>
       <p className="lead">
         <i className="fas fa-graduation-cap"></i> Add any school, bootcamp, etc
@@ -115,7 +115,7 @@ const AddEducation = () => {
           Go Back
         </Link>
       </form>
-    </section>
+    </>
   );
 };
 

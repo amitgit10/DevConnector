@@ -29,7 +29,7 @@ const Profile = () => {
       {profile === null || loading ? (
         <Spinner />
       ) : (
-        <section className="container">
+        <>
           <Link to="/profiles" className="btn">
             <b>Back To Profiles</b>
           </Link>
@@ -79,7 +79,7 @@ const Profile = () => {
               <ProfileGithubRepos username={profile.githubusername} />
             )}
           </div>
-        </section>
+        </>
       )}
     </>
   );

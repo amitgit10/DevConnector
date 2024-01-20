@@ -2,7 +2,7 @@ import { Navbar } from "./components/layout/Navbar";
 import { Landing } from "./components/layout/Landing";
 import { Register } from "./components/auth/Register";
 import { Login } from "./components/auth/Login";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Outlet } from "react-router-dom";
 import { Alert } from "./components/layout/Alert";
 import setAuthToken from "./utils/setAuthToken";
 import { useEffect } from "react";
@@ -18,6 +18,7 @@ import Profiles from "./components/profiles/Profiles";
 import Profile from "./components/profile/Profile";
 import Posts from "./components/posts/Posts";
 import Post from "./components/post/Post";
+import NotFound from "./components/layout/NotFound";
 
 const App = () => {
   const token = localStorage.getItem("token");
@@ -34,77 +35,85 @@ const App = () => {
   return (
     <>
       <Navbar />
-      <Alert />
       <Routes>
         <Route exact path="/" element={<Landing />} />
-        <Route exact path="/register" element={<Register />} />
-        <Route exact path="/login" element={<Login />} />
-        <Route exact path="/profiles" element={<Profiles />} />
-        <Route exact path="/profile/:user_id" element={<Profile />} />
+        <Route
+          element={
+            <section className="container">
+              <Alert />
+              <Outlet />
+            </section>
+          }>
+          <Route exact path="/register" element={<Register />} />
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/profiles" element={<Profiles />} />
+          <Route exact path="/profile/:user_id" element={<Profile />} />
 
-        <Route
-          exact
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          exact
-          path="/create-profile"
-          element={
-            <ProtectedRoute>
-              <CreateProfile />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          exact
-          path="/edit-profile"
-          element={
-            <ProtectedRoute>
-              <EditProfile />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          exact
-          path="/add-experience"
-          element={
-            <ProtectedRoute>
-              <AddExperience />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          exact
-          path="/add-education"
-          element={
-            <ProtectedRoute>
-              <AddEducation />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          exact
-          path="/posts"
-          element={
-            <ProtectedRoute>
-              <Posts />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          exact
-          path="/post/:post_id"
-          element={
-            <ProtectedRoute>
-              <Post />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            exact
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/create-profile"
+            element={
+              <ProtectedRoute>
+                <CreateProfile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/edit-profile"
+            element={
+              <ProtectedRoute>
+                <EditProfile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/add-experience"
+            element={
+              <ProtectedRoute>
+                <AddExperience />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/add-education"
+            element={
+              <ProtectedRoute>
+                <AddEducation />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/posts"
+            element={
+              <ProtectedRoute>
+                <Posts />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/post/:post_id"
+            element={
+              <ProtectedRoute>
+                <Post />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<NotFound />} />
+        </Route>
       </Routes>
     </>
   );

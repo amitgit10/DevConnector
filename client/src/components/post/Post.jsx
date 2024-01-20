@@ -17,7 +17,7 @@ const Post = () => {
   }, []);
 
   return (
-    <section className="container">
+    <>
       <Link to="/posts" className="btn">
         Back To Posts
       </Link>
@@ -42,7 +42,7 @@ const Post = () => {
           ))}
         </>
       )}
-    </section>
+    </>
   );
 };
 

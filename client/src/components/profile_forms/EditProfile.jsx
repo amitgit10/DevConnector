@@ -69,7 +69,7 @@ const EditProfile = () => {
   };
 
   return (
-    <section className="container">
+    <>
       <h1 className="large text-primary">Edit Your Profile</h1>
       <p className="lead">
         <i className="fas fa-user"></i>
@@ -238,7 +238,7 @@ const EditProfile = () => {
           Go Back
         </Link>
       </form>
-    </section>
+    </>
   );
 };
 

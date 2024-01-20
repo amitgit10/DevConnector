@@ -20,7 +20,7 @@ const Profiles = () => {
           <Spinner />
         </>
       ) : (
-        <section className="container">
+        <>
           <h1 className="large text-primary">Developers</h1>
           <p className="lead">
             <i className="fa fa-angles-right"></i> &nbsp;Browse and connect with
@@ -35,7 +35,7 @@ const Profiles = () => {
               <h4>No profile found...</h4>
             )}
           </div>
-        </section>
+        </>
       )}
     </>
   );

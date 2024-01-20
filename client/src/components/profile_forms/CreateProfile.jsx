@@ -50,7 +50,7 @@ const CreateProfile = () => {
   };
 
   return (
-    <section className="container">
+    <>
       <h1 className="large text-primary">Create Your Profile</h1>
       <p className="lead">
         <i className="fas fa-user"></i>
@@ -219,7 +219,7 @@ const CreateProfile = () => {
           Go Back
         </Link>
       </form>
-    </section>
+    </>
   );
 };
 
