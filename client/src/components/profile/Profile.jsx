@@ -31,12 +31,12 @@ const Profile = () => {
       ) : (
         <section className="container">
           <Link to="/profiles" className="btn">
-            Back To Profiles
+            <b>Back To Profiles</b>
           </Link>
           {isAuthenticated && !authLoading && user._id === profile.user._id && (
             <Link to="/edit-profile" className="btn">
-              <i className="fas fa-user-circle text-primary"></i>&nbsp;Edit
-              Profile
+              <i className="fas fa-user-circle text-primary"></i>&nbsp;
+              <b>Edit Profile</b>
             </Link>
           )}
 

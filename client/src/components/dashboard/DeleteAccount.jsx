@@ -8,7 +8,8 @@ const DeleteAccount = () => {
       <button
         onClick={() => dispatch(deleteAccount())}
         className="btn btn-danger">
-        <i className="fas fa-user-minus"></i> Delete My Account
+        <i className="fas fa-user-minus fa-lg"></i>&nbsp;&nbsp;
+        <b>Delete My Account</b>
       </button>
     </div>
   );

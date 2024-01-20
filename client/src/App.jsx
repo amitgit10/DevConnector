@@ -17,6 +17,7 @@ import AddEducation from "./components/profile_forms/AddEducation";
 import Profiles from "./components/profiles/Profiles";
 import Profile from "./components/profile/Profile";
 import Posts from "./components/posts/Posts";
+import Post from "./components/post/Post";
 
 const App = () => {
   const token = localStorage.getItem("token");
@@ -92,6 +93,15 @@ const App = () => {
           element={
             <ProtectedRoute>
               <Posts />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/post/:post_id"
+          element={
+            <ProtectedRoute>
+              <Post />
             </ProtectedRoute>
           }
         />

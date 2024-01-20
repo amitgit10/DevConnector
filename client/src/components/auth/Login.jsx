@@ -37,7 +37,7 @@ export const Login = () => {
     <section className="container">
       <h1 className="large text-primary">Sign In</h1>
       <p className="lead">
-        <i className="fas fa-user"></i>Sign into your account
+        <i className="fas fa-user"></i>&nbsp;Sign into your account
       </p>
       <form onSubmit={(e) => onSubmit(e)} className="form">
         <div className="form-group">

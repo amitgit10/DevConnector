@@ -12,15 +12,15 @@ const ProfileEducation = ({
         {time(from)} - {to ? time(to) : "Now"}
       </p>
       <p>
-        <strong>Degree:&nbsp;</strong>
+        <b>Degree:&nbsp;</b>
         {degree}
       </p>
       <p>
-        <strong>Field Of Study:&nbsp;</strong>
+        <b>Field Of Study:&nbsp;</b>
         {fieldofstudy}
       </p>
       <p>
-        <strong>Description:&nbsp;</strong>
+        <b>Description:&nbsp;</b>
         {description}
       </p>
     </div>

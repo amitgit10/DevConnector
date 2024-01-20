@@ -11,11 +11,11 @@ const ProfileExperience = ({
         {time(from)} - {to ? time(to) : "Now"}
       </p>
       <p>
-        <strong>Position:&nbsp;</strong>
+        <b>Position:&nbsp;</b>
         {title}
       </p>
       <p>
-        <strong>Description:&nbsp;</strong>
+        <b>Description:&nbsp;</b>
         {description}
       </p>
     </div>

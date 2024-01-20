@@ -18,9 +18,31 @@ const postSlice = createSlice({
       state.posts = payload;
       state.loading = false;
     },
+    getPost: (state, action) => {
+      const { payload } = action;
+      state.post = payload;
+      state.loading = false;
+    },
+    createPost: (state, action) => {
+      const { payload } = action;
+      state.posts.unshift(payload);
+      state.loading = false;
+    },
     removePost: (state, action) => {
       const { payload } = action;
       state.posts = state.posts.filter((post) => post._id !== payload);
+      state.loading = false;
+    },
+    commentPost: (state, action) => {
+      const { payload } = action;
+      state.post.comments = payload;
+      state.loading = false;
+    },
+    removeComment: (state, action) => {
+      const { payload } = action;
+      state.post.comments = state.post.comments.filter(
+        (comment) => comment._id !== payload
+      );
       state.loading = false;
     },
     postError: (state, action) => {
@@ -54,12 +76,48 @@ export const getAllPosts = () => async (dispatch) => {
   }
 };
 
+// Get a post
+export const fetchPost = (postId) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/posts/${postId}`);
+    dispatch(getPost(res.data));
+  } catch (err) {
+    dispatch(
+      postError({
+        msg: err.response.statusText,
+        status: err.response.status,
+      })
+    );
+  }
+};
+
+// Add a post
+export const addPost = (formData) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const res = await axios.post("/api/posts", formData, config);
+    dispatch(createPost(res.data));
+    dispatch(alert("Post Created", "success"));
+  } catch (err) {
+    dispatch(
+      postError({
+        msg: err.response.statusText,
+        status: err.response.status,
+      })
+    );
+  }
+};
+
 // Delete a post
 export const deletePost = (postId) => async (dispatch) => {
   try {
     const res = await axios.delete(`/api/posts/${postId}`);
-    dispatch(alert(res.data.msg, "success"));
     dispatch(removePost(postId));
+    dispatch(alert(res.data.msg, "success"));
   } catch (err) {
     dispatch(
       postError({
@@ -85,6 +143,56 @@ export const likePost = (postId) => async (dispatch) => {
   }
 };
 
-export const { getPosts, postError, updateLikes, removePost } =
-  postSlice.actions;
+// Comment on a post
+export const addComment = (postId, formData) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const res = await axios.post(
+      `/api/posts/comment/${postId}`,
+      formData,
+      config
+    );
+    dispatch(commentPost(res.data));
+    dispatch(alert("Comment Added", "success"));
+  } catch (err) {
+    dispatch(
+      postError({
+        msg: err.response.statusText,
+        status: err.response.status,
+      })
+    );
+  }
+};
+
+// Comment on a post
+export const deleteComment = (postId, commentId) => async (dispatch) => {
+  try {
+    await axios.delete(`/api/posts/comment/${postId}/${commentId}`);
+
+    dispatch(removeComment(commentId));
+    dispatch(alert("Comment Deleted", "success"));
+  } catch (err) {
+    dispatch(
+      postError({
+        msg: err.response.statusText,
+        status: err.response.status,
+      })
+    );
+  }
+};
+
+export const {
+  getPosts,
+  postError,
+  updateLikes,
+  removePost,
+  createPost,
+  getPost,
+  commentPost,
+  removeComment,
+} = postSlice.actions;
 export default postSlice.reducer;

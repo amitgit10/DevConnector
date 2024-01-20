@@ -119,7 +119,6 @@ export const createProfile =
       };
 
       const res = await axios.post("/api/profile", formdata, config);
-
       dispatch(getProfile(res.data));
       dispatch(alert(edit ? "Profile Updated" : "Profile Created", "success"));
 

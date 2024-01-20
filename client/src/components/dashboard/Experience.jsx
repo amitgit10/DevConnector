@@ -17,7 +17,7 @@ const Experience = ({ experience }) => {
         <button
           onClick={() => dispatch(deleteExperience(exp._id))}
           className="btn btn-danger">
-          Delete
+          <i className="fa-solid fa-trash fa-lg"></i>
         </button>
       </td>
     </tr>

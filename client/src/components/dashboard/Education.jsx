@@ -17,7 +17,7 @@ const Education = ({ education }) => {
         <button
           onClick={() => dispatch(deleteEducation(edu._id))}
           className="btn btn-danger">
-          Delete
+          <i className="fa-solid fa-trash fa-lg"></i>
         </button>
       </td>
     </tr>
